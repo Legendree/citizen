@@ -28,10 +28,12 @@ Shortly after a succesful connection you will get a message from the socket, als
   end
 ```
 
-For any real world usage, one would extract Cowboy's initializting functions from `application.ex` create a GenServer and start the process from there, add it to the supervision tree and treat Cowboy's stop function. I might extend it a bit later and add it myself as a nice example, or maybe not.
+For any real world usage, one would extract Cowboy's initializting functions from `application.ex` create a GenServer and start the process from there, add it to the supervision tree and treat Cowboy's stop function.
 
 ```elixir
 cowboy:stop_listener(http)
 ```
+
+I might extend it a bit later and add it myself as a nice example, or maybe not.
 
 p.s. why did I called it 'Citizen' like its some kind of library? I don't know I just like the sound of it leave me alone.
