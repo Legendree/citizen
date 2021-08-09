@@ -6,7 +6,7 @@ defmodule Citizen.SocketHandler do
   end
 
   def websocket_init(state) do
-    :erlang.start_timer(1000, self(), {:add, "Websockets rock!"})
+    :erlang.start_timer(1000, self(), {:greet, "Initial message"})
     {[], state}
   end
 
@@ -28,10 +28,13 @@ defmodule Citizen.SocketHandler do
   end
 
   defp handle_info({:greet, msg}, state) do
+    :erlang.start_timer(1000, self(), {:add, "Websockets rock!"})
     {:ok, msg, state}
   end
 
   defp handle_info({:add, msg}, state) do
+    # make it tick
+    :erlang.start_timer(1000, self(), {:add, "Websockets rock! as a tick ;)"})
     {:ok, "Howdy a cool message from Cowboy: #{msg}", state}
   end
 end

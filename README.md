@@ -1,21 +1,35 @@
-# Citizen
+# Citizen - Super basic Cowboy example in Elixir
 
-**TODO: Add description**
+In the past week I wondered, how does a simple websocket implementation looks like with Cowboy, no tutorials are available that use a plain example, so I created a small repo with all you need (probably).
 
-## Installation
+## Plain & Simple
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `citizen` to your list of dependencies in `mix.exs`:
+One depndency - Cowboy
+
+## Usage
+
+1. Clone the reposetory
+2. Run via `iex -S mix`
+3. Use a websocket client to connet wscat is a possibility
+4. Connect to `ws://localhost:4000/websocket`
+
+Shortly after a succesful connection you will get a message from the socket, also I've added a simple function to match different scenarios e.g.
 
 ```elixir
-def deps do
-  [
-    {:citizen, "~> 0.1.0"}
-  ]
-end
+  defp handle_info({:greet, msg}, state) do
+    :erlang.start_timer(1000, self(), {:add, "Websockets rock!"})
+    {:ok, msg, state}
+  end
+
+  defp handle_info({:add, msg}, state) do
+    # make it tick
+    :erlang.start_timer(1000, self(), {:add, "Websockets rock! as a tick ;)"})
+    {:ok, "Howdy a cool message from Cowboy: #{msg}", state}
+  end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/citizen](https://hexdocs.pm/citizen).
+For any real world usage one would extract the initializting functions from `application.ex` create a GenServer and start the process from there, add it to the supervision tree and treat Cowboy's stop function
 
+```elixir
+cowboy:stop_listener(http)
+```
