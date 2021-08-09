@@ -34,4 +34,4 @@ For any real world usage, one would extract Cowboy's initializting functions fro
 cowboy:stop_listener(http)
 ```
 
-p.s. why did I called 'Citizen' like its some kind of library, I don't know I just like the sound of it leave me alone.
+p.s. why did I called it 'Citizen' like its some kind of library? I don't know I just like the sound of it leave me alone.
