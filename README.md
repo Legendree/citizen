@@ -4,7 +4,11 @@ In the past week I wondered, how does a simple websocket implementation looks li
 
 ## Plain & Simple
 
-One depndency - Cowboy
+One dependency - Cowboy
+
+Is it useful? To somebody, maybe.
+Was it necessesary? Absoultely not.
+Was it worth it? Absolutely yes.
 
 ## Usage
 
