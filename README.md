@@ -12,7 +12,7 @@ One dependency - Cowboy
 
 ## Usage
 
-1. Clone the reposetory
+1. Clone the repository
 2. Run via `iex -S mix`
 3. Use a websocket client to connet wscat is a possibility
 4. Connect to `ws://localhost:4000/websocket`
@@ -41,3 +41,5 @@ cowboy:stop_listener(http)
 I might extend it a bit later and add it myself as a nice example, or maybe not.
 
 p.s. why did I called it 'Citizen' like its some kind of library? I don't know I just like the sound of it leave me alone.
+
+p.s.s. If you need to handle sockets you are encourged to use [Phoenix Framework](https://phoenixframework.org/) as it gives you everything you need and does it great, unless you are some kind of masochist.
