@@ -32,7 +32,7 @@ Shortly after a succesful connection you will get a message from the socket, als
   end
 ```
 
-For any real world usage, one would extract Cowboy's initializting functions from `application.ex` create a GenServer and start the process from there, add it to the supervision tree and treat Cowboy's stop function.
+~~For any real world usage, one would extract Cowboy's initializting functions from `application.ex` create a GenServer and start the process from there, add it to the supervision tree and treat Cowboy's stop function.~~ Already implemented in the example.
 
 ```elixir
 cowboy:stop_listener(http)
