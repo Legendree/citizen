@@ -15,4 +15,8 @@ defmodule Citizen do
   def hello do
     :world
   end
+
+  def send_message_to_client(msg) when is_bitstring(msg) do
+    :erlang.start_timer(0, Citizen.Cowboy, msg)
+  end
 end
