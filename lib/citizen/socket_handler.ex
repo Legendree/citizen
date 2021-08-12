@@ -6,21 +6,20 @@ defmodule Citizen.SocketHandler do
   end
 
   def websocket_init(state) do
-    :erlang.send_after(1000, self(), {:msg, "Initial message"})
-    {[], state}
+    :yes = :global.register_name(:citizen_socket, self())
+    :erlang.send_after(10_000, self(), :heartbeat)
+    {[{:text, "Connection established."}], state}
   end
 
   def websocket_handle({:text, msg}, state) do
     {[:text, "Howdy! from the Cowboy: #{msg}"], state}
   end
 
-  def websocket_handle(msg, state) do
-    IO.puts(msg)
+  def websocket_handle(_, state) do
     {:ok, state}
   end
 
   def websocket_info({:msg, msg}, state) do
-    :erlang.send_after(0, self(), :heartbeat)
     {[{:text, msg}], state}
   end
 
@@ -31,6 +30,14 @@ defmodule Citizen.SocketHandler do
 
   def websocket_info(_info, state) do
     {[], state}
+  end
+
+  def send_message(msg) do
+    :erlang.send_after(0, self(), {:msg, msg})
+  end
+
+  def print_pid do
+    self()
   end
 
   # defp handle_info({:greet, msg}, state) do
