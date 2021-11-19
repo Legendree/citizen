@@ -8,7 +8,7 @@ defmodule Citizen.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      Citizen.Cowboy
+      {Citizen.Cowboy, "first_room"}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

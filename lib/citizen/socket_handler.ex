@@ -2,7 +2,7 @@ defmodule Citizen.SocketHandler do
   @behaviour :cowboy_websocket
 
   def init(req, state) do
-    {:cowboy_websocket, req, state, %{idle_timeout: :infinity}}
+    {:cowboy_websocket, req, state, %{}}
   end
 
   def websocket_init(state) do
@@ -11,8 +11,12 @@ defmodule Citizen.SocketHandler do
     {[{:text, "Connection established."}], state}
   end
 
-  def websocket_handle({:text, msg}, state) do
-    {[:text, "Howdy! from the Cowboy: #{msg}"], state}
+  def websocket_handle({:text, "!join" <> user}, state) do
+    {[{:text, "Joining the chat with user #{user}"}], state}
+  end
+
+  def websocket_handle(:ping, state) do
+    {[{:text, "pong"}], state}
   end
 
   def websocket_handle(_, state) do

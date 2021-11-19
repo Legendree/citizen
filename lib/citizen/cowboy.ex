@@ -3,12 +3,14 @@ defmodule Citizen.Cowboy do
 
   @cowboy_server __MODULE__
 
-  def start_link(_) do
-    GenServer.start_link(@cowboy_server, :no_args, name: @cowboy_server)
+  def start_link(room_name) when is_bitstring(room_name) do
+    GenServer.start_link(@cowboy_server, room_name, name: @cowboy_server)
   end
 
-  def init(:no_args) do
-    {:ok, _} = :cowboy.start_clear(:http, [{:port, 4000}], %{env: %{dispatch: dispatch()}})
+  def init(room_name) do
+    {:ok, _} =
+      :cowboy.start_clear(:http, [{:port, 4000}], %{env: %{dispatch: dispatch(room_name)}})
+
     IO.puts("Started Cowboy server")
     {:ok, nil}
   end
@@ -18,11 +20,11 @@ defmodule Citizen.Cowboy do
     {:shutdown, state}
   end
 
-  defp dispatch do
+  defp dispatch(room_name) do
     :cowboy_router.compile([
       {:_,
        [
-         {"/websocket", Citizen.SocketHandler, []}
+         {"/" <> room_name, Citizen.SocketHandler, []}
        ]}
     ])
   end
